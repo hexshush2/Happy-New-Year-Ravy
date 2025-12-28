@@ -1,294 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMO New Year Adventure 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Press Start 2P', cursive;
-  background: #222;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMO New Year Adventure 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
 
-body::before {
-  content:"";
-  position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  z-index:-1;
-}
+    /* Pixelated grid background for Switch vibe */
+    body::before {
+      content:"";
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), 
+                        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index:-1;
+    }
 
-/* Sparkle animation */
-@keyframes sparkle {
-  0% {opacity:0; transform: scale(0.5);}
-  50% {opacity:1; transform: scale(1);}
-  100% {opacity:0; transform: scale(0.5);}
-}
-.sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #fff;
-  border-radius: 50%;
-  animation: sparkle 1s infinite;
-}
+    /* Sparkle fireworks animation */
+    @keyframes sparkle {
+      0% {opacity: 0; transform: scale(0.5);}
+      50% {opacity: 1; transform: scale(1);}
+      100% {opacity: 0; transform: scale(0.5);}
+    }
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: sparkle 1s infinite;
+    }
 
-/* BMO screen */
-.bmo-screen {
-  background: #88d8b0;
-  width: 400px;
-  max-width: 90vw;
-  height: 600px;
-  max-height: 90vh;
-  border: 12px solid #4a9c8c;
-  border-radius: 20px;
-  padding: 20px;
-  box-sizing: border-box;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 0 20px #0f4c3d;
-  image-rendering: pixelated;
-  color: #fff;
-}
+    .bmo-screen {
+      background: #88d8b0;
+      width: 400px;
+      max-width: 90vw;
+      height: 600px;
+      max-height: 90vh;
+      border: 12px solid #4a9c8c;
+      border-radius: 20px;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 20px #0f4c3d;
+      image-rendering: pixelated;
+      position: relative;
+    }
 
-.save-file {
-  margin-bottom: 10px;
-  text-align: left;
-  width: 100%;
-}
+    .save-file {
+      margin-bottom: 20px;
+      text-align: left;
+      width: 100%;
+    }
 
-input[type="text"] {
-  width: 100%;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 14px;
-  padding: 5px;
-  margin-top: 5px;
-  border: 2px solid #4a9c8c;
-  border-radius: 5px;
-  background: #c4f0e6;
-}
+    input[type="text"] {
+      width: 100%;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      padding: 5px;
+      margin-top: 5px;
+      border: 2px solid #4a9c8c;
+      border-radius: 5px;
+      background: #c4f0e6;
+    }
 
-.enter-btn {
-  margin-top: 10px;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: #ffd6a5;
-}
+    .enter-btn {
+      margin-top: 10px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #ffd6a5;
+    }
 
-.welcome-msg {
-  display: none;
-  text-align: center;
-  margin: 20px 0;
-  font-size: 12px;
-}
+    .welcome-msg {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 12px;
+      color: #fff;
+    }
 
-.blinking {
-  animation: blink 1s infinite;
-}
+    .blinking {
+      animation: blink 1s infinite;
+    }
 
-@keyframes blink {
-  0%,50%,100% {opacity:1;}
-  25%,75% {opacity:0;}
-}
+    @keyframes blink {
+      0%, 50%, 100% {opacity: 1;}
+      25%, 75% {opacity: 0;}
+    }
 
-.question {
-  margin-top: 20px;
-  font-size: 10px;
-  text-align: center;
-}
+    .question {
+      margin-top: 30px;
+      font-size: 10px;
+      text-align: center;
+      color: #fff;
+    }
 
-.buttons {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: auto;
-  position: relative;
-  height: 60px;
-}
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: auto;
+      position: relative;
+      height: 60px;
+    }
 
-button.choice {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: #ffd6a5;
-  transition: all 0.2s;
-  position: relative;
-}
+    button.choice {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #ffd6a5;
+      transition: all 0.2s;
+      position: relative;
+    }
 
-.progress-bar {
-  width: 100%;
-  background: #b2f7ef;
-  height: 10px;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
+    .progress-bar {
+      width: 100%;
+      background: #b2f7ef;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
 
-.progress {
-  height: 100%;
-  width: 0%;
-  background: #ffaaa5;
-  transition: width 2s;
-}
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #ffaaa5;
+      transition: width 2s;
+    }
 
-/* BMO face */
-.bmo-face {
-  width: 120px;
-  height: 120px;
-  background: #4fc3a1;
-  border: 4px solid #4a9c8c;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-}
-.bmo-eye {
-  width: 20px;
-  height: 20px;
-  background: #000;
-  border-radius: 50%;
-  margin: 5px;
-}
-.bmo-mouth {
-  width: 40px;
-  height: 10px;
-  background: #000;
-  border-radius: 5px;
-  margin-top: 5px;
-}
-</style>
+    .bmo-face-img {
+      width: 120px;
+      height: 120px;
+      margin: 10px 0;
+      border: 4px solid #4a9c8c;
+      border-radius: 15px;
+      image-rendering: pixelated;
+    }
+  </style>
 </head>
 <body>
+  <div class="bmo-screen">
+    <div class="save-file">
+      <div>SAVE FILE 01: NEW YEAR 2026</div>
+      <div>PLAYER: <input type="text" id="playerName" placeholder="Enter your name"></div>
+      <button class="enter-btn" id="enterBtn">ENTER</button>
+      <div>COMPANION: BMO</div>
+      <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    </div>
 
-<div class="bmo-screen">
-  <div class="save-file">
-    <div>SAVE FILE 01: NEW YEAR 2026</div>
-    <div>PLAYER:</div>
-    <input type="text" id="playerName" placeholder="Enter your name">
-    <button class="enter-btn" id="enterBtn">ENTER</button>
-    <div>COMPANION: BMO</div>
-    <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    <img src="https://raw.githubusercontent.com/hexshush2/Happy-New-Year-Ravy/main/bmo-face.jpg" 
+         alt="BMO" class="bmo-face-img">
+
+    <div class="welcome-msg blinking" id="welcomeMsg">I’VE LONG BEEN WAITING FOR YOU</div>
+
+    <div class="question" id="questionText" style="display:none;">
+      DO YOU WANT TO START NOW, <span id="playerDisplay"></span>?
+    </div>
+
+    <div class="buttons" id="buttonContainer" style="display:none;">
+      <button class="choice" id="yesBtn">YES</button>
+      <button class="choice" id="noBtn">NO</button>
+    </div>
   </div>
 
-  <div class="bmo-face">
-    <div class="bmo-eye"></div>
-    <div class="bmo-eye"></div>
-    <div class="bmo-mouth"></div>
-  </div>
+  <!-- Background music (replace 'love-like-you.mp3' with your file) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="love-like-you.mp3" type="audio/mpeg">
+  </audio>
 
-  <div class="welcome-msg blinking" id="welcomeMsg">I’VE LONG BEEN WAITING FOR YOU</div>
+  <!-- Button sound effects -->
+  <audio id="clickSound" preload="auto"><source src="click.wav" type="audio/wav"></audio>
+  <audio id="moveSound" preload="auto"><source src="move.wav" type="audio/wav"></audio>
 
-  <div class="question" id="questionText" style="display:none;">
-    DO YOU WANT TO START NOW, <span id="playerDisplay"></span>?
-  </div>
+  <script>
+    const playerInput = document.getElementById('playerName');
+    const enterBtn = document.getElementById('enterBtn');
+    const welcomeMsg = document.getElementById('welcomeMsg');
+    const progress = document.getElementById('progress');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const questionText = document.getElementById('questionText');
+    const buttonContainer = document.getElementById('buttonContainer');
+    const playerDisplay = document.getElementById('playerDisplay');
+    const bgMusic = document.getElementById('bgMusic');
+    const clickSound = document.getElementById('clickSound');
+    const moveSound = document.getElementById('moveSound');
 
-  <div class="buttons" id="buttonContainer" style="display:none;">
-    <button class="choice" id="yesBtn">YES</button>
-    <button class="choice" id="noBtn">NO</button>
-  </div>
-</div>
+    // Firework sparkles
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(sparkle);
+      setTimeout(()=>{ sparkle.remove(); }, 1000);
+    }
+    setInterval(createSparkle, 300);
 
-<!-- Background music (replace with your file) -->
-<audio id="bgMusic" loop>
-  <source src="love-like-you.mp3" type="audio/mpeg">
-</audio>
+    // Button sound functions
+    function playClick() {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+    function playMove() {
+      moveSound.currentTime = 0;
+      moveSound.play();
+    }
 
-<script>
-// Web Audio API beep
-function beep(volume, frequency, duration){
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  oscillator.type = 'square';
-  oscillator.frequency.value = frequency;
-  gainNode.gain.value = volume;
-  oscillator.start();
-  oscillator.stop(audioCtx.currentTime + duration/1000);
-}
+    // Start adventure
+    function startAdventure() {
+      if(playerInput.value.trim() !== ''){
+        const name = playerInput.value.trim();
+        playerDisplay.textContent = name;
+        welcomeMsg.style.display = 'block';
+        questionText.style.display = 'block';
+        buttonContainer.style.display = 'flex';
+        progress.style.width = '100%';
+        bgMusic.muted = false;
+        bgMusic.play().catch(()=>{});
+        playClick();
+      }
+    }
 
-// Sparkles
-function createSparkle() {
-  const sparkle = document.createElement('div');
-  sparkle.classList.add('sparkle');
-  sparkle.style.left = Math.random() * window.innerWidth + 'px';
-  sparkle.style.top = Math.random() * window.innerHeight + 'px';
-  document.body.appendChild(sparkle);
-  setTimeout(()=>{ sparkle.remove(); }, 1000);
-}
-setInterval(createSparkle, 300);
+    // ENTER button
+    enterBtn.addEventListener('click', startAdventure);
+    playerInput.addEventListener('keydown', function(e){ 
+      if(e.key === 'Enter'){ startAdventure(); playClick(); }
+    });
 
-// Elements
-const playerInput = document.getElementById('playerName');
-const enterBtn = document.getElementById('enterBtn');
-const welcomeMsg = document.getElementById('welcomeMsg');
-const progress = document.getElementById('progress');
-const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
-const questionText = document.getElementById('questionText');
-const buttonContainer = document.getElementById('buttonContainer');
-const playerDisplay = document.getElementById('playerDisplay');
-const bgMusic = document.getElementById('bgMusic');
+    // NO button moves with sound
+    function moveNoButton() {
+      playMove();
+      const container = document.querySelector('.bmo-screen');
+      const maxX = container.clientWidth - noBtn.clientWidth - 20;
+      const maxY = container.clientHeight - noBtn.clientHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('touchstart', function(e){ e.preventDefault(); moveNoButton(); });
 
-// Play beep on typing
-playerInput.addEventListener('keydown', ()=> beep(0.2, 600, 50));
-
-// Start adventure
-function startAdventure(){
-  if(playerInput.value.trim() !== ''){
-    playerDisplay.textContent = playerInput.value.trim();
-    welcomeMsg.style.display = 'block';
-    questionText.style.display = 'block';
-    buttonContainer.style.display = 'flex';
-    progress.style.width = '100%';
-    beep(0.3, 400, 100);
-    bgMusic.play().catch(()=>{}); // looped background music
-  }
-}
-enterBtn.addEventListener('click', startAdventure);
-playerInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') startAdventure(); });
-
-// NO button moves with beep
-function moveNoButton(){
-  beep(0.3, 800, 100);
-  const container = document.querySelector('.bmo-screen');
-  const maxX = container.clientWidth - noBtn.clientWidth - 20;
-  const maxY = container.clientHeight - noBtn.clientHeight - 20;
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-  noBtn.style.position='absolute';
-  noBtn.style.left = x + 'px';
-  noBtn.style.top = y + 'px';
-}
-noBtn.addEventListener('mouseenter', moveNoButton);
-noBtn.addEventListener('touchstart', e=>{ e.preventDefault(); moveNoButton(); });
-
-// YES button click beep
-yesBtn.addEventListener('click', ()=> beep(0.3, 500, 100));
-</script>
-
+    // YES button click with sound
+    yesBtn.addEventListener('click', function(){
+      playClick();
+      alert("Yay! Let's go, Ravrav! 🎉🎮");
+      // Next screen code here
+    });
+  </script>
 </body>
 </html>
