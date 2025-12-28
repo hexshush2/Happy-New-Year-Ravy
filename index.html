@@ -29,6 +29,22 @@ body::before {
   z-index:-1;
 }
 
+/* Sparkle animation */
+@keyframes sparkle {
+  0% {opacity:0; transform: scale(0.5);}
+  50% {opacity:1; transform: scale(1);}
+  100% {opacity:0; transform: scale(0.5);}
+}
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: sparkle 1s infinite;
+}
+
+/* BMO screen */
 .bmo-screen {
   background: #88d8b0;
   width: 400px;
@@ -194,6 +210,11 @@ button.choice {
   </div>
 </div>
 
+<!-- Background music (replace with your file) -->
+<audio id="bgMusic" loop>
+  <source src="love-like-you.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 // Web Audio API beep
 function beep(volume, frequency, duration){
@@ -209,6 +230,17 @@ function beep(volume, frequency, duration){
   oscillator.stop(audioCtx.currentTime + duration/1000);
 }
 
+// Sparkles
+function createSparkle() {
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.style.left = Math.random() * window.innerWidth + 'px';
+  sparkle.style.top = Math.random() * window.innerHeight + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(()=>{ sparkle.remove(); }, 1000);
+}
+setInterval(createSparkle, 300);
+
 // Elements
 const playerInput = document.getElementById('playerName');
 const enterBtn = document.getElementById('enterBtn');
@@ -219,11 +251,44 @@ const yesBtn = document.getElementById('yesBtn');
 const questionText = document.getElementById('questionText');
 const buttonContainer = document.getElementById('buttonContainer');
 const playerDisplay = document.getElementById('playerDisplay');
+const bgMusic = document.getElementById('bgMusic');
 
 // Play beep on typing
 playerInput.addEventListener('keydown', ()=> beep(0.2, 600, 50));
 
-// ENTER button starts adventure and plays beep
+// Start adventure
 function startAdventure(){
   if(playerInput.value.trim() !== ''){
     playerDisplay.textContent = playerInput.value.trim();
+    welcomeMsg.style.display = 'block';
+    questionText.style.display = 'block';
+    buttonContainer.style.display = 'flex';
+    progress.style.width = '100%';
+    beep(0.3, 400, 100);
+    bgMusic.play().catch(()=>{}); // looped background music
+  }
+}
+enterBtn.addEventListener('click', startAdventure);
+playerInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') startAdventure(); });
+
+// NO button moves with beep
+function moveNoButton(){
+  beep(0.3, 800, 100);
+  const container = document.querySelector('.bmo-screen');
+  const maxX = container.clientWidth - noBtn.clientWidth - 20;
+  const maxY = container.clientHeight - noBtn.clientHeight - 20;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+  noBtn.style.position='absolute';
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = y + 'px';
+}
+noBtn.addEventListener('mouseenter', moveNoButton);
+noBtn.addEventListener('touchstart', e=>{ e.preventDefault(); moveNoButton(); });
+
+// YES button click beep
+yesBtn.addEventListener('click', ()=> beep(0.3, 500, 100));
+</script>
+
+</body>
+</html>
