@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMO Christmas Adventure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: #a0e7e5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .bmo-screen {
+      background: #88d8b0;
+      width: 400px;
+      max-width: 90vw;
+      height: 600px;
+      max-height: 90vh;
+      border: 8px solid #4a9c8c;
+      border-radius: 20px;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .save-file {
+      margin-bottom: 20px;
+      text-align: left;
+      width: 100%;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      padding: 5px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .welcome-msg {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 12px;
+    }
+
+    .question {
+      margin-top: 30px;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: auto;
+      position: relative;
+      height: 60px;
+    }
+
+    button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #ffd6a5;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background: #b2f7ef;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #ffaaa5;
+      transition: width 2s;
+    }
+  </style>
+</head>
+<body>
+  <div class="bmo-screen">
+    <div class="save-file">
+      <div>SAVE FILE 01: NEW YEAR 2026</div>
+      <div>PLAYER: <input type="text" id="playerName" placeholder="Enter your name"></div>
+      <div>COMPANION: BMO</div>
+      <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    </div>
+
+    <div class="welcome-msg" id="welcomeMsg">I’VE LONG BEEN WAITING FOR YOU</div>
+
+    <div class="question" id="questionText" style="display:none;">
+      DO YOU WANT TO START NOW, <span id="playerDisplay"></span>?
+    </div>
+
+    <div class="buttons" id="buttonContainer" style="display:none;">
+      <button id="yesBtn">YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_3c64dca0ff.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const playerInput = document.getElementById('playerName');
+    const welcomeMsg = document.getElementById('welcomeMsg');
+    const progress = document.getElementById('progress');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const questionText = document.getElementById('questionText');
+    const buttonContainer = document.getElementById('buttonContainer');
+    const playerDisplay = document.getElementById('playerDisplay');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // Show welcome message and question after player enters name
+    playerInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && playerInput.value.trim() !== ''){
+        const name = playerInput.value.trim();
+        playerDisplay.textContent = name;
+        welcomeMsg.style.display = 'block';
+        questionText.style.display = 'block';
+        buttonContainer.style.display = 'flex';
+        progress.style.width = '100%';
+        bgMusic.play();
+      }
+    });
+
+    // NO button moves away on hover or click for mobile
+    function moveNoButton() {
+      const container = document.querySelector('.bmo-screen');
+      const maxX = container.clientWidth - noBtn.clientWidth - 20;
+      const maxY = container.clientHeight - noBtn.clientHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('touchstart', function(e){
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener('click', function(){
+      alert('Get ready for your BMO adventure! 🎮💚');
+      // Here you can link to the next page or screen
+    });
+  </script>
+</body>
+</html>
