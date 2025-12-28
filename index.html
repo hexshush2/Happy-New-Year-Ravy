@@ -18,19 +18,17 @@ body {
   overflow: hidden;
 }
 
-/* Pixelated grid background for Switch vibe */
 body::before {
   content:"";
   position:absolute;
   top:0; left:0;
   width:100%; height:100%;
-  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), 
+  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   z-index:-1;
 }
 
-/* Sparkle fireworks animation */
 @keyframes sparkle {
   0% {opacity: 0; transform: scale(0.5);}
   50% {opacity: 1; transform: scale(1);}
@@ -45,7 +43,6 @@ body::before {
   animation: sparkle 1s infinite;
 }
 
-/* BMO screen */
 .bmo-screen {
   background: #88d8b0;
   width: 400px;
@@ -178,12 +175,12 @@ button.choice {
   </div>
 </div>
 
-<!-- Background music (replace with your loop) -->
+<!-- Background music -->
 <audio id="bgMusic" loop>
   <source src="yourMusic.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Button sound effects -->
+<!-- Button/key typing sound effects -->
 <audio id="clickSound"><source src="click.wav" type="audio/wav"></audio>
 <audio id="moveSound"><source src="move.wav" type="audio/wav"></audio>
 
@@ -212,6 +209,12 @@ function createSparkle() {
 }
 setInterval(createSparkle, 300);
 
+// Play sound on ENTER button and when typing in input
+function playClickSound() {
+  clickSound.currentTime = 0;
+  clickSound.play();
+}
+
 // Start adventure
 function startAdventure() {
   if(playerInput.value.trim() !== ''){
@@ -223,14 +226,17 @@ function startAdventure() {
     progress.style.width = '100%';
     bgMusic.muted = false;
     bgMusic.play().catch(()=>{});
-    clickSound.play(); // small ENTER click
+    playClickSound();
   }
 }
 
-// ENTER button
+// ENTER button click
 enterBtn.addEventListener('click', startAdventure);
 
-// Enter key support
+// Play sound when typing
+playerInput.addEventListener('keydown', playClickSound);
+
+// Enter key also triggers adventure
 playerInput.addEventListener('keydown', function(e){
   if(e.key === 'Enter'){ startAdventure(); }
 });
@@ -251,13 +257,12 @@ function moveNoButton() {
 noBtn.addEventListener('mouseenter', moveNoButton);
 noBtn.addEventListener('touchstart', function(e){ e.preventDefault(); moveNoButton(); });
 
-// YES button click with sound
+// YES button click
 yesBtn.addEventListener('click', function(){
-  clickSound.currentTime = 0;
-  clickSound.play();
+  playClickSound();
   alert("Yay! Let's go, Ravrav! 🎉🎮");
-  // Next screen
 });
 </script>
+
 </body>
 </html>
