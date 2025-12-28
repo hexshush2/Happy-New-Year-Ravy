@@ -1,178 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BMO Christmas Adventure</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Press Start 2P', cursive;
-      background: #a0e7e5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMO New Year Adventure 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Press Start 2P', cursive;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
 
-    .bmo-screen {
-      background: #88d8b0;
-      width: 400px;
-      max-width: 90vw;
-      height: 600px;
-      max-height: 90vh;
-      border: 8px solid #4a9c8c;
-      border-radius: 20px;
-      padding: 20px;
-      box-sizing: border-box;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+/* Pixelated grid background for Switch vibe */
+body::before {
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), 
+                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index:-1;
+}
 
-    .save-file {
-      margin-bottom: 20px;
-      text-align: left;
-      width: 100%;
-    }
+/* Sparkle fireworks animation */
+@keyframes sparkle {
+  0% {opacity: 0; transform: scale(0.5);}
+  50% {opacity: 1; transform: scale(1);}
+  100% {opacity: 0; transform: scale(0.5);}
+}
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: sparkle 1s infinite;
+}
 
-    input[type="text"] {
-      width: 100%;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 14px;
-      padding: 5px;
-      margin-top: 5px;
-      border: none;
-      border-radius: 5px;
-    }
+/* BMO screen */
+.bmo-screen {
+  background: #88d8b0;
+  width: 400px;
+  max-width: 90vw;
+  height: 600px;
+  max-height: 90vh;
+  border: 12px solid #4a9c8c;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 20px #0f4c3d;
+  image-rendering: pixelated;
+}
 
-    .welcome-msg {
-      display: none;
-      text-align: center;
-      margin: 20px 0;
-      font-size: 12px;
-    }
+.save-file {
+  margin-bottom: 20px;
+  text-align: left;
+  width: 100%;
+}
 
-    .question {
-      margin-top: 30px;
-      font-size: 10px;
-      text-align: center;
-    }
+input[type="text"] {
+  width: 100%;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  padding: 5px;
+  margin-top: 5px;
+  border: 2px solid #4a9c8c;
+  border-radius: 5px;
+  background: #c4f0e6;
+}
 
-    .buttons {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      margin-top: auto;
-      position: relative;
-      height: 60px;
-    }
+.enter-btn {
+  margin-top: 10px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #ffd6a5;
+}
 
-    button {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 12px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background-color: #ffd6a5;
-      transition: all 0.2s;
-      position: relative;
-    }
+.welcome-msg {
+  display: none;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 12px;
+  color: #fff;
+}
 
-    .progress-bar {
-      width: 100%;
-      background: #b2f7ef;
-      height: 10px;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
+.blinking {
+  animation: blink 1s infinite;
+}
 
-    .progress {
-      height: 100%;
-      width: 0%;
-      background: #ffaaa5;
-      transition: width 2s;
-    }
-  </style>
+@keyframes blink {
+  0%, 50%, 100% {opacity: 1;}
+  25%, 75% {opacity: 0;}
+}
+
+.question {
+  margin-top: 30px;
+  font-size: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  height: 60px;
+}
+
+button.choice {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #ffd6a5;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #b2f7ef;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background: #ffaaa5;
+  transition: width 2s;
+}
+</style>
 </head>
 <body>
-  <div class="bmo-screen">
-    <div class="save-file">
-      <div>SAVE FILE 01: NEW YEAR 2026</div>
-      <div>PLAYER: <input type="text" id="playerName" placeholder="Enter your name"></div>
-      <div>COMPANION: BMO</div>
-      <div class="progress-bar"><div class="progress" id="progress"></div></div>
-    </div>
 
-    <div class="welcome-msg" id="welcomeMsg">I’VE LONG BEEN WAITING FOR YOU</div>
-
-    <div class="question" id="questionText" style="display:none;">
-      DO YOU WANT TO START NOW, <span id="playerDisplay"></span>?
-    </div>
-
-    <div class="buttons" id="buttonContainer" style="display:none;">
-      <button id="yesBtn">YES</button>
-      <button id="noBtn">NO</button>
-    </div>
+<div class="bmo-screen">
+  <div class="save-file">
+    <div>SAVE FILE 01: NEW YEAR 2026</div>
+    <div>PLAYER:</div>
+    <input type="text" id="playerName" placeholder="Enter your name">
+    <button class="enter-btn" id="enterBtn">ENTER</button>
+    <div>COMPANION: BMO</div>
+    <div class="progress-bar"><div class="progress" id="progress"></div></div>
   </div>
 
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_3c64dca0ff.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <div class="welcome-msg blinking" id="welcomeMsg">I’VE LONG BEEN WAITING FOR YOU</div>
 
-  <script>
-    const playerInput = document.getElementById('playerName');
-    const welcomeMsg = document.getElementById('welcomeMsg');
-    const progress = document.getElementById('progress');
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const questionText = document.getElementById('questionText');
-    const buttonContainer = document.getElementById('buttonContainer');
-    const playerDisplay = document.getElementById('playerDisplay');
-    const bgMusic = document.getElementById('bgMusic');
+  <div class="question" id="questionText" style="display:none;">
+    DO YOU WANT TO START NOW, <span id="playerDisplay"></span>?
+  </div>
 
-    // Show welcome message and question after player enters name
-    playerInput.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' && playerInput.value.trim() !== ''){
-        const name = playerInput.value.trim();
-        playerDisplay.textContent = name;
-        welcomeMsg.style.display = 'block';
-        questionText.style.display = 'block';
-        buttonContainer.style.display = 'flex';
-        progress.style.width = '100%';
-        bgMusic.play();
-      }
-    });
+  <div class="buttons" id="buttonContainer" style="display:none;">
+    <button class="choice" id="yesBtn">YES</button>
+    <button class="choice" id="noBtn">NO</button>
+  </div>
+</div>
 
-    // NO button moves away on hover or click for mobile
-    function moveNoButton() {
-      const container = document.querySelector('.bmo-screen');
-      const maxX = container.clientWidth - noBtn.clientWidth - 20;
-      const maxY = container.clientHeight - noBtn.clientHeight - 20;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-      noBtn.style.position = 'absolute';
-      noBtn.style.left = x + 'px';
-      noBtn.style.top = y + 'px';
-    }
+<!-- Background music (replace with your loop) -->
+<audio id="bgMusic" loop>
+  <source src="yourMusic.mp3" type="audio/mpeg">
+</audio>
 
-    noBtn.addEventListener('mouseenter', moveNoButton);
-    noBtn.addEventListener('touchstart', function(e){
-      e.preventDefault();
-      moveNoButton();
-    });
+<!-- Button sound effects -->
+<audio id="clickSound"><source src="click.wav" type="audio/wav"></audio>
+<audio id="moveSound"><source src="move.wav" type="audio/wav"></audio>
 
-    yesBtn.addEventListener('click', function(){
-      alert('Get ready for your BMO adventure! 🎮💚');
-      // Here you can link to the next page or screen
-    });
-  </script>
+<script>
+const playerInput = document.getElementById('playerName');
+const enterBtn = document.getElementById('enterBtn');
+const welcomeMsg = document.getElementById('welcomeMsg');
+const progress = document.getElementById('progress');
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const questionText = document.getElementById('questionText');
+const buttonContainer = document.getElementById('buttonContainer');
+const playerDisplay = document.getElementById('playerDisplay');
+const bgMusic = document.getElementById('bgMusic');
+const clickSound = document.getElementById('clickSound');
+const moveSound = document.getElementById('moveSound');
+
+// Firework sparkles
+function createSparkle() {
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.style.left = Math.random() * window.innerWidth + 'px';
+  sparkle.style.top = Math.random() * window.innerHeight + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(()=>{ sparkle.remove(); }, 1000);
+}
+setInterval(createSparkle, 300);
+
+// Start adventure
+function startAdventure() {
+  if(playerInput.value.trim() !== ''){
+    const name = playerInput.value.trim();
+    playerDisplay.textContent = name;
+    welcomeMsg.style.display = 'block';
+    questionText.style.display = 'block';
+    buttonContainer.style.display = 'flex';
+    progress.style.width = '100%';
+    bgMusic.muted = false;
+    bgMusic.play().catch(()=>{});
+    clickSound.play(); // small ENTER click
+  }
+}
+
+// ENTER button
+enterBtn.addEventListener('click', startAdventure);
+
+// Enter key support
+playerInput.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){ startAdventure(); }
+});
+
+// NO button moves with sound
+function moveNoButton() {
+  moveSound.currentTime = 0;
+  moveSound.play();
+  const container = document.querySelector('.bmo-screen');
+  const maxX = container.clientWidth - noBtn.clientWidth - 20;
+  const maxY = container.clientHeight - noBtn.clientHeight - 20;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = y + 'px';
+}
+noBtn.addEventListener('mouseenter', moveNoButton);
+noBtn.addEventListener('touchstart', function(e){ e.preventDefault(); moveNoButton(); });
+
+// YES button click with sound
+yesBtn.addEventListener('click', function(){
+  clickSound.currentTime = 0;
+  clickSound.play();
+  alert("Yay! Let's go, Ravrav! 🎉🎮");
+  // Next screen
+});
+</script>
 </body>
 </html>
